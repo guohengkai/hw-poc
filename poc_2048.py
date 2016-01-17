@@ -21,34 +21,32 @@ def _slide_tiles(line):
     """
     Function that slides a single row to the left without merging in 2048.
     """
+    res_line = [0] * len(line)
     next_idx = 0
-    # move non-zero to left
     for num in line:
         if num > 0:
-            line[next_idx] = num
+            res_line[next_idx] = num
             next_idx += 1
-    # set remains to zero
-    for idx in range(next_idx, len(line)):
-        line[idx] = 0
-    return line
+    return res_line
 
 def _merge_tiles(line):
     """
     Function that merge titles in a slided line without sliding in 2048.
     """
+    res_line = line[:]
     idx = 0
-    while idx < len(line) and line[idx] > 0:
-        if idx < len(line) - 1 and line[idx + 1] == line[idx]:
-            line[idx] *= 2
-            line[idx + 1] = 0
+    while idx < len(res_line) and res_line[idx] > 0:
+        if idx < len(res_line) - 1 and res_line[idx + 1] == res_line[idx]:
+            res_line[idx] *= 2
+            res_line[idx + 1] = 0
             idx += 2
         else:
             idx += 1
-    return line
+    return res_line
 
 def merge(line):
     """
-    Helper function that merges a single row or column in 2048
+    Function that merges a single row or column in 2048.
     """
     return _slide_tiles(_merge_tiles(_slide_tiles(line)))
 
@@ -83,7 +81,7 @@ class TwentyFortyEight:
             for col in range(self.grid_width):
                 res_str += str(self.grid[row][col])
                 if col == self.grid_width - 1:
-                    res_str += '], '
+                    res_str += ']'
                 else:
                     res_str += ', '
         res_str += ']'

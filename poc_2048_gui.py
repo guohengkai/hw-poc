@@ -39,7 +39,9 @@ class GUI:
         # url = codeskulptor.file2url(IMAGENAME)
         # url = 'http://commondatastorage.googleapis.com/codeskulptor-assets/' \
         #        + IMAGENAME
-        url = IMAGENAME
+        url = 'https://raw.githubusercontent.com/guohengkai/' \
+                + 'hw-poc/master/assets/' + IMAGENAME
+
         self._tiles = simplegui.load_image(url)
         self._directions = {"up": UP, "down": DOWN,
                             "left": LEFT, "right": RIGHT}
