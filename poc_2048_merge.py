@@ -6,30 +6,28 @@ def _slide_tiles(line):
     """
     Function that slides a single row to the left without merging in 2048.
     """
+    res_line = [0] * len(line)
     next_idx = 0
-    # move non-zero to left
     for num in line:
         if num > 0:
-            line[next_idx] = num
+            res_line[next_idx] = num
             next_idx += 1
-    # set remains to zero
-    for idx in range(next_idx, len(line)):
-        line[idx] = 0
-    return line
+    return res_line
 
 def _merge_tiles(line):
     """
     Function that merge titles in a slided line without sliding in 2048.
     """
+    res_line = line[:]
     idx = 0
-    while idx < len(line) and line[idx] > 0:
-        if idx < len(line) - 1 and line[idx + 1] == line[idx]:
-            line[idx] *= 2
-            line[idx + 1] = 0
+    while idx < len(res_line) and res_line[idx] > 0:
+        if idx < len(res_line) - 1 and res_line[idx + 1] == res_line[idx]:
+            res_line[idx] *= 2
+            res_line[idx + 1] = 0
             idx += 2
         else:
             idx += 1
-    return line
+    return res_line
 
 def merge(line):
     """
@@ -39,7 +37,7 @@ def merge(line):
 
 if __name__ == '__main__':
     # list for tuples of case: (input, output)
-    test_cases = [([], []),
+    TEST_CASES = [([], []),
                   ([0, 0, 0], [0, 0, 0]),
                   ([2, 0, 2, 4], [4, 4, 0, 0]),
                   ([0, 0, 2, 2], [4, 0, 0, 0]),
@@ -47,12 +45,12 @@ if __name__ == '__main__':
                   ([2, 2, 2, 2, 2], [4, 4, 2, 0, 0]),
                   ([8, 16, 16, 8], [8, 32, 8, 0])]
 
-    for idx, (in_list, out_list) in enumerate(test_cases):
+    for index, (in_list, out_list) in enumerate(TEST_CASES):
         res_list = merge(in_list)
         if cmp(res_list, out_list) == 0:
-            print 'test %d passed.' % idx
+            print 'test %d passed.' % index
         else:
-            print 'test %d failed.' % idx
+            print 'test %d failed.' % index
             print 'input:', in_list
             print 'expected output:', out_list
             print 'your output:', res_list
