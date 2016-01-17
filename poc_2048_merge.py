@@ -6,13 +6,16 @@ def _slide_tiles(line):
     """
     Function that slides a single row to the left without merging in 2048.
     """
-    slided_line = [0] * len(line)
     next_idx = 0
+    # move non-zero to left
     for num in line:
         if num > 0:
-            slided_line[next_idx] = num
+            line[next_idx] = num
             next_idx += 1
-    return slided_line
+    # set remains to zero
+    for idx in range(next_idx, len(line)):
+        line[idx] = 0
+    return line
 
 def _merge_tiles(line):
     """
